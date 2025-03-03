@@ -1,0 +1,119 @@
+农产品销售系统 - 数据统计接口文档
+
+一、接口基本信息
+基础路径: /api/statistics
+请求方式: GET
+返回格式: JSON
+认证要求: 需要token认证
+
+二、接口列表
+
+1. 获取本月订单统计
+接口路径: /orders/monthly
+请求参数: 
+  - farmerId: Long类型，可选，农户ID
+返回示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "currentMonthOrders": 150,    // 本月订单数
+        "lastMonthOrders": 120,       // 上月订单数
+        "growthRate": "25.00%"        // 环比增长率
+    }
+}
+
+2. 获取本月销售额统计
+接口路径: /sales/monthly
+请求参数:
+  - farmerId: Long类型，可选，农户ID
+返回示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "currentMonthSales": 15000.00,  // 本月销售额
+        "lastMonthSales": 12000.00,     // 上月销售额
+        "growthRate": "25.00%"          // 环比增长率
+    }
+}
+
+3. 获取用户订单统计
+接口路径: /user/orders
+请求参数:
+  - userId: Long类型，必填，用户ID
+返回示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "currentMonthOrders": 5,       // 本月订单数
+        "lastMonthOrders": 3,          // 上月订单数
+        "totalOrders": 20,             // 总订单数
+        "growthRate": "66.67%"         // 环比增长率
+    }
+}
+
+4. 获取用户消费统计
+接口路径: /user/spending
+请求参数:
+  - userId: Long类型，必填，用户ID
+返回示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "currentMonthSpending": 1500.00,  // 本月消费金额
+        "lastMonthSpending": 1000.00,     // 上月消费金额
+        "totalSpending": 5000.00,         // 总消费金额
+        "growthRate": "50.00%"            // 环比增长率
+    }
+}
+
+5. 获取年度用户统计
+接口路径: /users/yearly
+请求参数: 无
+返回示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "currentYearUsers": 1500,    // 今年用户总数
+        "lastYearUsers": 1000,       // 去年用户总数
+        "growthRate": "50.00%"       // 同比增长率
+    }
+}
+
+三、错误码说明
+0: 成功
+-1: 失败，具体错误信息见msg字段
+
+四、注意事项
+1. 所有金额单位为元，保留两位小数
+2. 增长率为百分比形式，保留两位小数
+3. 订单统计只统计已支付的订单
+4. 用户统计只统计状态为启用的用户
+5. farmerId参数为可选，不传则统计所有订单/销售额
+6. 时间范围说明：
+   - 月度统计：自然月
+   - 年度统计：自然年
+7. 环比增长率计算方式：(本期数据-上期数据)/上期数据*100%
+8. 当上期数据为0时：
+   - 如果本期也为0，增长率为0%
+   - 如果本期大于0，增长率为100%
+
+五、调用示例
+1. 获取农户本月订单统计
+GET /api/statistics/orders/monthly?farmerId=1
+
+2. 获取所有订单销售额统计
+GET /api/statistics/sales/monthly
+
+3. 获取指定用户订单统计
+GET /api/statistics/user/orders?userId=1
+
+4. 获取指定用户消费统计
+GET /api/statistics/user/spending?userId=1
+
+5. 获取年度用户统计
+GET /api/statistics/users/yearly 

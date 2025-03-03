@@ -1,0 +1,100 @@
+购物车管理接口文档
+
+1. 添加商品到购物车
+URL: POST /cart
+请求示例:
+{
+    "userId": 1,
+    "productId": 1,
+    "quantity": 2
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "productId": 1,
+        "quantity": 2
+    }
+}
+
+2. 更新购物车商品数量
+URL: PUT /cart/{id}?quantity=3
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "productId": 1,
+        "quantity": 3
+    }
+}
+
+3. 删除购物车商品
+URL: DELETE /cart/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+4. 根据用户ID获取购物车
+URL: GET /cart/user/{userId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "userId": 1,
+            "productId": 1,
+            "quantity": 2
+        }
+    ]
+}
+
+5. 清空购物车
+URL: DELETE /cart/clear/{userId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+6. 分页查询购物车
+URL: GET /cart/page?userId=1&currentPage=1&size=10
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "records": [
+            {
+                "id": 1,
+                "userId": 1,
+                "productId": 1,
+                "quantity": 2
+            }
+        ],
+        "total": 1,
+        "size": 10,
+        "current": 1,
+        "pages": 1
+    }
+}
+
+7. 批量删除购物车项
+URL: DELETE /cart/batch?ids=1,2,3
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+} 

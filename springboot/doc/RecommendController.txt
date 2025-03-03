@@ -1,0 +1,26 @@
+推荐管理接口文档
+
+1. 获取用户推荐
+URL: GET /recommend/user/{userId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "name": "红富士苹果",
+            "description": "新鲜红富士苹果，产地山东",
+            "price": 10.00
+        }
+    ]
+}
+
+2. 更新所有用户推荐
+URL: POST /recommend/update
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+} 

@@ -1,0 +1,26 @@
+文件上传接口文档
+
+1. 文件上传
+URL: POST /file/upload/img
+请求示例:
+MultipartFile file
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": "http://example.com/upload/123.jpg"
+}
+
+2. 多文件上传
+URL: POST /file/uploadMultiple
+请求示例:
+List<MultipartFile> files
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        "http://example.com/upload/123.jpg",
+        "http://example.com/upload/456.jpg"
+    ]
+} 

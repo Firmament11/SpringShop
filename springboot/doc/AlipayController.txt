@@ -1,0 +1,32 @@
+支付宝支付接口文档
+
+1. 创建支付
+URL: POST /alipay/create/{orderId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "orderId": 1,
+        "payUrl": "https://openapi.alipay.com/gateway.do?xxx"
+    }
+}
+
+2. 支付通知回调
+URL: POST /alipay/notify
+请求示例:
+{
+    "trade_no": "2023111022001411001412345678",
+    "out_trade_no": "20231110123456",
+    "trade_status": "TRADE_SUCCESS"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "trade_no": "2023111022001411001412345678",
+        "out_trade_no": "20231110123456",
+        "trade_status": "TRADE_SUCCESS"
+    }
+} 

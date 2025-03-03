@@ -1,0 +1,104 @@
+分类管理接口文档
+
+1. 创建分类
+URL: POST /category
+请求示例:
+{
+    "name": "水果",
+    "description": "新鲜水果"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "水果",
+        "description": "新鲜水果"
+    }
+}
+
+2. 更新分类信息
+URL: PUT /category/{id}
+请求示例:
+{
+    "name": "新鲜水果",
+    "description": "当季新鲜水果"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "新鲜水果",
+        "description": "当季新鲜水果"
+    }
+}
+
+3. 删除分类
+URL: DELETE /category/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+4. 根据ID获取分类详情
+URL: GET /category/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "水果",
+        "description": "新鲜水果"
+    }
+}
+
+5. 分页查询分类列表
+URL: GET /category/page?name=水果&currentPage=1&size=10
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "records": [
+            {
+                "id": 1,
+                "name": "水果",
+                "description": "新鲜水果"
+            }
+        ],
+        "total": 1,
+        "size": 10,
+        "current": 1,
+        "pages": 1
+    }
+}
+
+6. 获取所有分类
+URL: GET /category/all
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "name": "水果",
+            "description": "新鲜水果"
+        }
+    ]
+}
+
+7. 批量删除分类
+URL: DELETE /category/batch?ids=1,2,3
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+} 

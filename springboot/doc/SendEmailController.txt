@@ -1,0 +1,19 @@
+邮件发送接口文档
+
+1. 发送注册验证码
+URL: GET /email/sendEmail/{email}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": 123456
+}
+
+2. 发送找回密码验证码
+URL: GET /email/findByEmail/{email}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": 123456
+} 

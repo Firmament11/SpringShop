@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>农产品商城后端服务 | Agri-Mall API</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        /* 配色方案 */
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --accent: #FFC107;
+            --dark: #2E7D32;
+            --light: #F1F8E9;
+        }
+
+        /* 页面过渡 */
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #fff 100%);
+            min-height: 100vh;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            padding: 1rem 5%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            animation: pulse 2s infinite;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* 主内容区 */
+        .hero {
+            padding: 8rem 5% 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.05em;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--light);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            margin: 2rem 0;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #00C853;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* 功能卡片 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* 技术栈展示 */
+        .tech-stack {
+            padding: 4rem 5%;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tech-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .tech-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .tech-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        /* 操作按钮 */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(76,175,80,0.3);
+        }
+
+        /* 页脚 */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 5%;
+            margin-top: 5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .tech-grid { grid-template-columns: repeat(4, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .tech-grid { grid-template-columns: repeat(3, 1fr); }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+        /* 动态时间显示 */
+        .time-display {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏 -->
+<nav class="navbar">
+    <div class="brand">
+        <div class="brand-logo">
+            <i class="fas fa-leaf" style="color: white;"></i>
+        </div>
+        <span class="brand-text">Agri-Mall API</span>
+    </div>
+</nav>
+
+<!-- 主内容区 -->
+<section class="hero">
+    <h1>农产品商城后端服务</h1>
+    <div class="status-badge">
+        <div class="status-dot"></div>
+        <span>服务状态：运行中</span>
+    </div>
+    <p>安全可靠的农产品交易平台核心服务</p>
+
+    <a href="http://localhost:8080" class="cta-button">
+        <i class="fas fa-external-link-alt"></i>
+        访问前端系统
+    </a>
+</section>
+
+<!-- 功能模块 -->
+<section class="features">
+    <div class="card">
+        <i class="fas fa-shield-alt card-icon"></i>
+        <h3>安全认证中心</h3>
+        <p>基于JWT的分布式认证方案，支持RBAC权限控制</p>
+    </div>
+    <div class="card">
+        <i class="fas fa-database card-icon"></i>
+        <h3>商品管理系统</h3>
+        <p>支持百万级商品数据的高效存储与检索</p>
+    </div>
+    <div class="card">
+        <i class="fas fa-chart-line card-icon"></i>
+        <h3>实时数据分析</h3>
+        <p>基于Elasticsearch的交易数据分析系统</p>
+    </div>
+</section>
+
+<!-- 技术栈展示 -->
+<section class="tech-stack">
+    <h2 style="text-align: center; margin-bottom: 2rem;">核心技术栈</h2>
+    <div class="tech-grid">
+        <div class="tech-item">
+            <img src="https://www.vectorlogo.zone/logos/springio/springio-icon.svg" class="tech-logo" alt="Spring Boot">
+            <span>Spring Boot 3.4</span>
+        </div>
+        <div class="tech-item">
+            <img src="https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg" class="tech-logo" alt="MySQL">
+            <span>MySQL 8.0</span>
+        </div>
+        <div class="tech-item">
+            <img src="https://www.vectorlogo.zone/logos/redis/redis-icon.svg" class="tech-logo" alt="Redis">
+            <span>Redis 7.0</span>
+        </div>
+        <div class="tech-item">
+            <img src="https://www.vectorlogo.zone/logos/elastic/elastic-icon.svg" class="tech-logo" alt="Elasticsearch">
+            <span>Elasticsearch 8.5</span>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>关于我们</h4>
+            <p>致力于打造最安全的农产品交易平台</p>
+        </div>
+        <div>
+            <h4>开发者文档</h4>
+            <ul>
+                <li><a href="/swagger-ui.html" style="color: white;">API 文档</a></li>
+                <li><a href="/actuator" style="color: white;">系统监控</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>技术支持</h4>
+            <p>7×24小时运维保障</p>
+        </div>
+        <div>
+            <h4>联系我们</h4>
+            <p>support@agri-mall.com</p>
+        </div>
+    </div>
+</footer>
+
+<!-- 动态时间 -->
+<div class="time-display" id="timeDisplay"></div>
+
+<script>
+    // 动态时间显示
+    function updateTime() {
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        document.getElementById('timeDisplay').textContent =
+            new Date().toLocaleDateString('zh-CN', options);
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // 卡片动画
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('mouseover', () => {
+            card.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        card.addEventListener('mouseout', () => {
+            card.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // 页面加载动画
+    window.addEventListener('load', () => {
+        const hero = document.querySelector('.hero');
+        hero.style.opacity = 1;
+        hero.style.transform = 'translateY(0)';
+    });
+</script>
+</body>
+</html>

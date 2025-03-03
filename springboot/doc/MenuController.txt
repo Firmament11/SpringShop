@@ -1,0 +1,171 @@
+菜单管理接口文档
+
+1. 增加菜单
+URL: POST /menu/save
+请求示例:
+{
+    "name": "用户管理",
+    "path": "/user",
+    "icon": "user",
+    "pid": null,
+    "role": "admin"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "用户管理",
+        "path": "/user",
+        "icon": "user",
+        "pid": null,
+        "role": "admin"
+    }
+}
+
+2. 更新菜单
+URL: PUT /menu/{id}
+请求示例:
+{
+    "name": "用户管理",
+    "path": "/user",
+    "icon": "user",
+    "pid": null,
+    "role": "admin"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "用户管理",
+        "path": "/user",
+        "icon": "user",
+        "pid": null,
+        "role": "admin"
+    }
+}
+
+3. 批量删除菜单
+URL: DELETE /menu/deleteBatch?ids=1,2,3
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+4. 根据id删除菜单项
+URL: DELETE /menu/deleteById/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+5. 通过ID查询菜单项
+URL: GET /menu/find/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "name": "用户管理",
+        "path": "/user",
+        "icon": "user",
+        "pid": null,
+        "role": "admin"
+    }
+}
+
+6. 查询菜单
+URL: GET /menu/findAll
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "name": "用户管理",
+            "path": "/user",
+            "icon": "user",
+            "pid": null,
+            "role": "admin"
+        }
+    ]
+}
+
+7. 分页查询一级菜单
+URL: GET /menu/findParentMenus?currentPage=1&size=10
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "records": [
+            {
+                "id": 1,
+                "name": "用户管理",
+                "path": "/user",
+                "icon": "user",
+                "pid": null,
+                "role": "admin"
+            }
+        ],
+        "total": 1,
+        "size": 10,
+        "current": 1,
+        "pages": 1
+    }
+}
+
+8. 根据父级ID查询子菜单
+URL: GET /menu/findChildrenMenus/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 2,
+            "name": "用户列表",
+            "path": "/user/list",
+            "icon": "user",
+            "pid": 1,
+            "role": "admin"
+        }
+    ]
+}
+
+9. 获取菜单树
+URL: GET /menu/getMenuTree/{userId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "name": "用户管理",
+            "path": "/user",
+            "icon": "user",
+            "pid": null,
+            "role": "admin",
+            "children": [
+                {
+                    "id": 2,
+                    "name": "用户列表",
+                    "path": "/user/list",
+                    "icon": "user",
+                    "pid": 1,
+                    "role": "admin"
+                }
+            ]
+        }
+    ]
+} 

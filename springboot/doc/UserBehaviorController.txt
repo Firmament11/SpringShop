@@ -1,0 +1,86 @@
+用户行为管理接口文档
+
+1. 创建用户行为
+URL: POST /userBehavior
+请求示例:
+{
+    "userId": 1,
+    "productId": 1,
+    "type": "view"
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "productId": 1,
+        "type": "view",
+        "time": "2023-11-10 12:00:00"
+    }
+}
+
+2. 删除用户行为
+URL: DELETE /userBehavior/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+3. 根据ID获取用户行为详情
+URL: GET /userBehavior/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "userId": 1,
+        "productId": 1,
+        "type": "view",
+        "time": "2023-11-10 12:00:00"
+    }
+}
+
+4. 根据用户ID获取用户行为列表
+URL: GET /userBehavior/user/{userId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": [
+        {
+            "id": 1,
+            "userId": 1,
+            "productId": 1,
+            "type": "view",
+            "time": "2023-11-10 12:00:00"
+        }
+    ]
+}
+
+5. 分页查询用户行为列表
+URL: GET /userBehavior/page?userId=1&currentPage=1&size=10
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "records": [
+            {
+                "id": 1,
+                "userId": 1,
+                "productId": 1,
+                "type": "view",
+                "time": "2023-11-10 12:00:00"
+            }
+        ],
+        "total": 1,
+        "size": 10,
+        "current": 1,
+        "pages": 1
+    }
+} 

@@ -1,0 +1,103 @@
+物流管理接口文档
+
+1. 创建物流信息
+URL: POST /logistics
+请求示例:
+{
+    "orderId": 1,
+    "logisticsNo": "123456789",
+    "status": 1
+}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "orderId": 1,
+        "logisticsNo": "123456789",
+        "status": 1
+    }
+}
+
+2. 更新物流状态
+URL: PUT /logistics/{id}/status?status=2
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "orderId": 1,
+        "logisticsNo": "123456789",
+        "status": 2
+    }
+}
+
+3. 删除物流信息
+URL: DELETE /logistics/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+}
+
+4. 根据ID获取物流详情
+URL: GET /logistics/{id}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "orderId": 1,
+        "logisticsNo": "123456789",
+        "status": 1
+    }
+}
+
+5. 根据订单ID获取物流信息
+URL: GET /logistics/order/{orderId}
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "id": 1,
+        "orderId": 1,
+        "logisticsNo": "123456789",
+        "status": 1
+    }
+}
+
+6. 分页查询物流信息
+URL: GET /logistics/page?orderId=1&currentPage=1&size=10
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": {
+        "records": [
+            {
+                "id": 1,
+                "orderId": 1,
+                "logisticsNo": "123456789",
+                "status": 1
+            }
+        ],
+        "total": 1,
+        "size": 10,
+        "current": 1,
+        "pages": 1
+    }
+}
+
+7. 批量删除物流信息
+URL: DELETE /logistics/batch?ids=1,2,3
+返回成功示例:
+{
+    "code": "0",
+    "msg": "成功",
+    "data": null
+} 
